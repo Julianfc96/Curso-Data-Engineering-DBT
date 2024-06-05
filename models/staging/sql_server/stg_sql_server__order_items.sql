@@ -1,23 +1,19 @@
 
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_order_items AS (
     SELECT * 
-    FROM {{ source('sql_server', 'order_items') }}
+    FROM {{ source('sql_server_dbo', 'order_items') }}
     ),
 
 renamed_casted AS (
     SELECT
-          ORDER_ID
-        , PRODUCT_ID
-        , QUANTITY
-        , _FIVETRAN_DELETED
-        , _FIVETRAN_SYNCED AS date_load
+        order_id,
+        product_id,
+        quantity,
+        SUM(quantity)OVER(PARTITION BY order_id) as products_per_order,
+        coalesce(_fivetran_deleted, false) AS date_deleted,
+        convert_timezone('UTC',_fivetran_synced) AS date_load
     FROM src_order_items
+    ORDER BY order_id
     )
 
 SELECT * FROM renamed_casted

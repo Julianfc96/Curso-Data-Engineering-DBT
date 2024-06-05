@@ -1,24 +1,16 @@
-
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_products AS (
     SELECT * 
-    FROM {{ source('sql_server', 'products') }}
+    FROM {{ source('sql_server_dbo', 'products') }}
     ),
 
 renamed_casted AS (
     SELECT
-          PRODUCT_ID
-        , PRICE
-        , NAME
-        , (256)
-        , INVENTORY
-        , _FIVETRAN_DELETED
-        , _FIVETRAN_SYNCED AS date_load
+        product_id,
+        price as price_dollars,
+        name,
+        inventory,
+        coalesce(_fivetran_deleted, false) AS date_deleted,
+        convert_timezone('UTC',_fivetran_synced) AS date_load
     FROM src_products
     )
 

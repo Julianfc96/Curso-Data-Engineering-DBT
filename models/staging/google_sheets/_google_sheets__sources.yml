@@ -15,11 +15,21 @@ sources:
     #    error_after: {count: 48, period: hour}
 
     tables:
+
       - name: budget
         loaded_at_field: _fivetran_synced
         columns:
           - name: _row
+            tests: 
+              - unique
+              - not_null
           - name: product_id
+            tests:
+            - relationships:
+                to: source('sql_server_dbo','products')
+                field: product_id
           - name: quantity
+            tests:
+              - positive_values
           - name: month
           - name: _fivetran_synced
