@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_sql_server__addresses
+    columns:
+          - name: address_id
+          - name: zipcode
+          - name: country
+          - name: address
+          - name: state
+          - name: _fivetran_deleted
+          - name: date_load
+  - name: stg_sql_server__events
+    columns:
+          - name: EVENT_ID
+          - name: PAGE_URL
+          - name: EVENT_TYPE
+          - name: USER_ID
+          - name: PRODUCT_ID
+          - name: SESSION_ID
+          - name: CREATED_AT
+          - name: ORDER_ID
+          - name: _FIVETRAN_DELETED
+          - name: date_load 
+  - name: stg_sql_server__order_items
+    columns:
+          - name: ORDER_ID
+          - name: PRODUCT_ID
+          - name: QUANTITY
+          - name: _FIVETRAN_DELETED
+          - name: date_load
+  - name: stg_sql_server__orders
+    columns:
+          - name: ORDER_ID
+          - name: SHIPPING_SERVICE
+          - name: SHIPPING_COST
+          - name: ADDRESS_ID
+          - name: CREATED_AT
+          - name: PROMO_ID
+          - name: ESTIMATED_DELIVERY_AT
+          - name: ORDER_COST
+          - name: USER_ID
+          - name: ORDER_TOTAL
+          - name: DELIVERED_AT
+          - name: TRACKING_ID
+          - name: STATUS
+          - name: _FIVETRAN_DELETED
+          - name: date_load
+  - name: stg_sql_server__products
+    columns:
+          - name: PRODUCT_ID
+          - name: PRICE
+          - name: NAME
+          - name: INVENTORY
+          - name: _FIVETRAN_DELETED
+          - name: date_load
+  - name: stg_sql_server__promos
+    columns:
+          - name: PROMO_ID
+          - name: DISCOUNT
+          - name: STATUS
+          - name: _FIVETRAN_DELETED
+          - name: date_load
+  - name: stg_sql_server__users
+    columns:
+          - name: USER_ID
+          - name: UPDATED_AT
+          - name: ADDRESS_ID
+          - name: LAST_NAME
+          - name: CREATED_AT
+          - name: PHONE_NUMBER
+          - name: TOTAL_ORDERS
+          - name: FIRST_NAME
+          - name: EMAIL
+          - name: _FIVETRAN_DELETED
+          - name: date_load
